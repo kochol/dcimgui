@@ -38,3 +38,18 @@ To use the Zig module:
     ```
 - ...and see https://github.com/floooh/sokol-zig-imgui-sample/blob/main/build.zig
   for how to integrate the `cimgui` or `cimgui_docking` module with your Zig project
+
+## moco fork
+
+The `moco-calm` branch adds the moco Calm tile patch to `src-docking/`: taller dock tab rows with centered labels, muted unselected tabs, rounded corners on every docked tile, and the `GImGuiMocoDockTrailing` hook for the fold button. Build with `IMGUI_MOCO_TAB_BAR_EXTRA=0` to keep the stock tab row height.
+
+To update ImGui:
+
+```
+git fetch upstream
+git checkout moco-calm
+git rebase upstream/main
+# if the patch hunks conflict, reset src-docking to upstream and reapply:
+#   git checkout upstream/main -- src-docking
+#   git apply --3way --directory=src-docking patches/imgui-calm-tile-titles-v1.92.9-docking.patch
+```

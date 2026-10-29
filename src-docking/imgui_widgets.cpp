@@ -10808,6 +10808,13 @@ bool    ImGui::TabItemEx(ImGuiTabBar* tab_bar, const char* label, bool* p_open, 
     // Layout
     const bool is_central_section = (tab->Flags & ImGuiTabItemFlags_SectionMask_) == 0;
     size.x = tab->Width;
+    ImVec2 label_padding = tab_bar->FramePadding;
+    if (tab_bar->Flags & ImGuiTabBarFlags_DockNode)
+    {
+        // moco Calm: dock tabs fill the (taller) title row and keep their label centered in it
+        size.y = tab_bar->BarRect.GetHeight();
+        label_padding.y = ImTrunc((size.y - g.FontSize) * 0.5f);
+    }
     if (is_central_section)
         window->DC.CursorPos = tab_bar->BarRect.Min + ImVec2(IM_TRUNC(tab->Offset - tab_bar->ScrollingAnim), 0.0f);
     else
@@ -10963,7 +10970,13 @@ bool    ImGui::TabItemEx(ImGuiTabBar* tab_bar, const char* label, bool* p_open, 
         const ImGuiID close_button_id = p_open ? GetIDWithSeed("#CLOSE", NULL, docked_window ? docked_window->ID : id) : 0;
         bool just_closed;
         bool text_clipped;
-        TabItemLabelAndCloseButton(display_draw_list, bb, tab_just_unsaved ? (flags & ~ImGuiTabItemFlags_UnsavedDocument) : flags, tab_bar->FramePadding, label, id, close_button_id, tab_contents_visible, &just_closed, &text_clipped);
+        // moco Calm: unselected tab titles use the muted text color (hovered ones stay full).
+        const bool mute_label = !tab_contents_visible && !hovered;
+        if (mute_label)
+            PushStyleColor(ImGuiCol_Text, GetStyleColorVec4(ImGuiCol_TextDisabled));
+        TabItemLabelAndCloseButton(display_draw_list, bb, tab_just_unsaved ? (flags & ~ImGuiTabItemFlags_UnsavedDocument) : flags, label_padding, label, id, close_button_id, tab_contents_visible, &just_closed, &text_clipped);
+        if (mute_label)
+            PopStyleColor();
         if (just_closed && p_open != NULL)
         {
             *p_open = false;

@@ -2062,6 +2062,13 @@ enum ImGuiDockNodeState
 };
 
 // sizeof() 176~216
+// moco Calm patch: optional trailing button at the right end of every dock node tab bar (tile fold).
+// Called with rect == NULL to ask how many pixels to reserve (0 = none), then with the reserved rect,
+// with the dock host window current, to draw and handle the button.
+#define IMGUI_MOCO_DOCK_TRAILING 1
+typedef float (*ImGuiMocoDockTrailingFn)(ImGuiDockNode* node, const ImRect* rect);
+extern IMGUI_API ImGuiMocoDockTrailingFn GImGuiMocoDockTrailing;
+
 struct IMGUI_API ImGuiDockNode
 {
     ImGuiID                 ID;

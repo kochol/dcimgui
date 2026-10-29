@@ -8220,7 +8220,7 @@ bool ImGui::Begin(const char* name, bool* p_open, ImGuiWindowFlags flags)
         window->DC.MenuBarOffset.x = ImMax(ImMax(window->WindowPadding.x, style.ItemSpacing.x), g.NextWindowData.MenuBarOffsetMinVal.x);
         window->DC.MenuBarOffset.y = g.NextWindowData.MenuBarOffsetMinVal.y;
 #ifndef IMGUI_MOCO_TAB_BAR_EXTRA
-#define IMGUI_MOCO_TAB_BAR_EXTRA 1.0f   // moco Calm: tile title rows are one font-size taller (44 px at 13 px)
+#define IMGUI_MOCO_TAB_BAR_EXTRA 0.0f   // moco Calm: extra tab row height in font sizes, 0 keeps the stock height
 #endif
         window->TitleBarHeight = (flags & ImGuiWindowFlags_NoTitleBar) ? 0.0f : g.FontSize * (1.0f + (window->DockIsActive ? IMGUI_MOCO_TAB_BAR_EXTRA : 0.0f)) + g.Style.FramePadding.y * 2.0f;
         window->MenuBarHeight = (flags & ImGuiWindowFlags_MenuBar) ? window->DC.MenuBarOffset.y + g.FontSize + g.Style.FramePadding.y * 2.0f : 0.0f;

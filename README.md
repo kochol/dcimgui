@@ -41,7 +41,7 @@ To use the Zig module:
 
 ## moco fork
 
-The `moco-calm` branch adds the moco Calm tile patch to `src-docking/`: taller dock tab rows with centered labels, muted unselected tabs, rounded corners on every docked tile, and the `GImGuiMocoDockTrailing` hook for the fold button. Build with `IMGUI_MOCO_TAB_BAR_EXTRA=0` to keep the stock tab row height.
+The `moco-calm` branch adds the moco Calm tile patch to `src-docking/`: taller dock tab rows with centered labels, muted unselected tabs, rounded corners on every docked tile, and the `GImGuiMocoDockTrailing` hook for the fold button. Tab rows keep the stock height; define `IMGUI_MOCO_TAB_BAR_EXTRA=1` for the taller 44 px rows from the handoff.
 
 To update ImGui:
 
